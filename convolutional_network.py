@@ -4,7 +4,7 @@ import input_data
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 
-
+import pickle
 
 import numpy
 import numpy as np; npl = np.linalg
@@ -24,8 +24,9 @@ from PIL import Image
 import os
 import io
 
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+import tensorflow as tf
+#import tensorflow.compat.v1 as tf
+#tf.disable_v2_behavior()
 ##############################################################################################################
 class AddSign(optimizer.Optimizer):
     """Implementation of AddSign.
@@ -198,8 +199,12 @@ class PF(optimizer.Optimizer):
                 #aa = tf.reduce_sum(m,keepdims=True)
                # print("aa")
                # print(sessL.run(aa))
+                # Saving the objects:
+                aaaa = "0"
+                with open('objs.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
+                    pickle.dump(m, f)
 
-                var_n = tf.reduce_sum(m )+ np.random.normal(0, lr_t.eval(session=sessL), NumberParticle)
+                var_n = tf.reduce_sum(m)+ np.random.normal(0, lr_t.eval(session=sessL), NumberParticle)
 
                 #print(sessL.run(m))
                 #print(sessL.run(var_n))
